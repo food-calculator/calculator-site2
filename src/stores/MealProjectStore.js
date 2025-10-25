@@ -6,17 +6,17 @@ export const useMealProjectStore = defineStore('MealProject', () => {
         {
             title: "Montag, 2025-10-24",
             meals: [
-                {name: 0, recipe: 0, numberOfPersons: 42},
-                {name: 1, recipe: 3, numberOfPersons: 42},
-                {name: 2, recipe: 6, numberOfPersons: 42}
+                {recipe: 0, numberOfPersons: 42},
+                {recipe: 3, numberOfPersons: 42},
+                {recipe: 6, numberOfPersons: 42}
             ],
         },
         {
             title: "Dienstag, 2025-10-24",
             meals: [
-                {name: 0, recipe: 1, numberOfPersons: 42},
-                {name: 1, recipe: 2, numberOfPersons: 42},
-                {name: 2, recipe: 7, numberOfPersons: 42}
+                {recipe: 1, numberOfPersons: 42},
+                {recipe: 2, numberOfPersons: 42},
+                {recipe: 7, numberOfPersons: 42}
             ],
         }
     ])

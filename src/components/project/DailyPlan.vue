@@ -17,9 +17,9 @@ const mealNames = mealProjectStore.mealNames
     <details>
       <summary>{{ day.title }}</summary>
       <div id="mealList">
-        <div class="mealInfo" v-for="meal in day.meals">
+        <div class="mealInfo" v-for="(meal, index) in day.meals">
           <p>
-            {{ mealNames[meal.name] }}:
+            {{ mealNames[index] }}:
             <RecipeSelector v-model="meal.recipe"/>
           </p>
           <p>
