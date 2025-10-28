@@ -32,9 +32,9 @@ function removeCategory(id) {
 
 <template>
   <div>
-    <div id="ingredientAndCategoryContainer">
+    <h2>Zutaten</h2>
+    <div class="flexRow spaceBetween">
       <div>
-        <h2>Zutaten</h2>
         <Ingredient v-for="ingredient in ingredients" :ingredient="ingredient"/>
         <button @click="addIngredient">Neue Zutat</button>
       </div>
@@ -50,11 +50,6 @@ function removeCategory(id) {
 </template>
 
 <style scoped>
-#ingredientAndCategoryContainer {
-  display: flex;
-  justify-content: space-between;
-}
-
 .deleteButton {
   padding: 1px;
   height: max-content;
