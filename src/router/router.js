@@ -18,6 +18,11 @@ const router = createRouter({
             path: "/ingredients",
             name: "ingredients",
             component: () => import('../views/IngredientView.vue'),
+        },
+        {
+            path: "/recipes",
+            name: "recipes",
+            component: () => import('../views/RecipeView.vue')
         }
     ],
 })

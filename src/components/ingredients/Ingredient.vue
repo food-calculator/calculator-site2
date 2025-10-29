@@ -2,6 +2,7 @@
 import useIngredientStore from "@/stores/IngredientStore.js";
 import InteractiveValue from "@/components/utils/InteractiveValue.vue";
 import ListSelector from "@/components/utils/ListSelector.vue";
+import Expandable from "@/components/utils/Expandable.vue";
 
 const props = defineProps(["ingredient"])
 const ingredientStore = useIngredientStore()
@@ -28,32 +29,28 @@ function onToggle(e) {
 
 <template>
   <div>
-    <details class="ingredientDetails" @toggle="onToggle">
-      <summary>Name:
+    <Expandable :title="ingredient.name">
+      <p>
+        Name:
         <InteractiveValue v-model="ingredient.name" type="text"/>
-      </summary>
-      <div class="ingredientDetail">
-        <p>Einheit:
-          <InteractiveValue v-model="ingredient.unit" type="text"/>
-        </p>
-        <p>kcal pro 1 {{ ingredient.unit }}:
-          <InteractiveValue v-model="ingredient.kcalPerUnit" type="number"/>
-        </p>
-        <p>Kategorie:
-          <ListSelector v-model="ingredient.category" :selectList="ingredientStore.categories"/>
-        </p>
-        <button @click="deleteSelf">Löschen</button>
-      </div>
-    </details>
+      </p>
+      <p>
+        Einheit:
+        <InteractiveValue v-model="ingredient.unit" type="text"/>
+      </p>
+      <p>
+        kcal pro 1 {{ ingredient.unit }}:
+        <InteractiveValue v-model="ingredient.kcalPerUnit" type="number"/>
+      </p>
+      <p>
+        Kategorie:
+        <ListSelector v-model="ingredient.category" :selectList="ingredientStore.categories"/>
+      </p>
+      <button @click="deleteSelf">Löschen</button>
+    </Expandable>
   </div>
 </template>
 
 <style scoped>
-.ingredientDetail {
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 4px 8px;
-  margin: 5px 0 10px 10px;
-  width: max-content;
-}
+
 </style>

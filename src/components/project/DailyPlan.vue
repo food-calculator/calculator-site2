@@ -2,6 +2,7 @@
 import {useMealProjectStore} from "@/stores/MealProjectStore.js";
 import InteractiveValue from "@/components/utils/InteractiveValue.vue";
 import RecipeSelector from "@/components/project/RecipeSelector.vue";
+import Expandable from "@/components/utils/Expandable.vue";
 
 const props = defineProps(["day"])
 
@@ -14,31 +15,22 @@ const mealNames = mealProjectStore.mealNames
 
 <template>
   <div>
-    <details>
-      <summary>{{ day.title }}</summary>
-      <div id="mealList">
-        <div class="mealInfo" v-for="(meal, index) in day.meals">
-          <p>
-            {{ mealNames[index] }}:
-            <RecipeSelector v-model="meal.recipe"/>
-          </p>
-          <p>
-            Personen:
-            <InteractiveValue type="number" v-model="meal.numberOfPersons"/>
-          </p>
-        </div>
+    <Expandable :title="day.title">
+      <div class="mealInfo" v-for="(meal, index) in day.meals">
+        <p>
+          {{ mealNames[index] }}:
+          <RecipeSelector v-model="meal.recipe"/>
+        </p>
+        <p>
+          Personen:
+          <InteractiveValue type="number" v-model="meal.numberOfPersons"/>
+        </p>
       </div>
-    </details>
+    </Expandable>
   </div>
 </template>
 
 <style scoped>
-#mealList {
-  border: 1px solid var(--color-border-hover);
-  border-radius: 5px;
-  padding: 5px 11px;
-  margin: 3px 11px;
-}
 
 .mealInfo:not(:last-child) {
   margin-bottom: 7px;
