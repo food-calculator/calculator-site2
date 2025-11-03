@@ -1,6 +1,6 @@
 <script setup>
 import InteractiveValue from "@/components/utils/InteractiveValue.vue";
-import MealNameEditor from "@/components/project/MealNameEditor.vue";
+import MealNameEditor from "@/components/projects/MealNameEditor.vue";
 import {useMealProjectStore} from "@/stores/MealProjectStore.js";
 
 const mealProjectStore = useMealProjectStore()

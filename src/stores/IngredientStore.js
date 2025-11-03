@@ -19,10 +19,16 @@ const useIngredientStore = defineStore('IngredientStore', () => {
         }
     ])
 
-    const categories = ref({
-        0: "Trockenwaren",
-        1: "Gemüse"
-    })
+    const categories = ref([
+        {
+            id: 0,
+            name: "Trockenwaren"
+        },
+        {
+            id: 1,
+            name: "Gemüse"
+        }
+    ])
 
     return {ingredients, categories}
 })

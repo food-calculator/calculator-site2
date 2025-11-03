@@ -1,7 +1,7 @@
 <script setup>
 
-import ProjectMetadata from "@/components/project/ProjectMetadata.vue";
-import RecipeOverviewTable from "@/components/project/RecipeOverviewTable.vue";
+import ProjectMetadata from "@/components/projects/ProjectMetadata.vue";
+import RecipeOverviewTable from "@/components/projects/RecipeOverviewTable.vue";
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from "vue";
 
-defineProps(["title"])
+const {bigTitle = true} = defineProps(["title", "bigTitle"])
 
 const show = ref(false)
 
@@ -12,7 +12,8 @@ function toggleContent() {
 
 <template>
   <div class="expandable">
-    <h3 @click="toggleContent">{{ title }}</h3>
+    <h3 class="expandableTitle" v-if="bigTitle" @click="toggleContent">{{ title }}</h3>
+    <p class="expandableTitle" v-if="!bigTitle" @click="toggleContent">{{ title }}</p>
     <div v-if="show" class="flexRow">
       <span class="arrowTopLeft">&#8658;</span>
       <div class="expandableContent">
@@ -23,13 +24,7 @@ function toggleContent() {
 </template>
 
 <style scoped>
-.expandable {
-//border-left: 1px solid var(--color-border-hover); //border-radius: 2px 0 0 2px; padding: 3px;
-  margin: 3px 0;
-  width: max-content;
-}
-
-h3 {
+.expandableTitle {
   width: max-content;
   padding: 3px;
   border-radius: 5px;

@@ -44,7 +44,8 @@ function onToggle(e) {
       </p>
       <p>
         Kategorie:
-        <ListSelector v-model="ingredient.category" :selectList="ingredientStore.categories"/>
+        <ListSelector v-model="ingredient.category" :selectList="ingredientStore.categories"
+                      custom-display-property="name" custom-id-property="id"/>
       </p>
       <button @click="deleteSelf">Löschen</button>
     </Expandable>

@@ -1,5 +1,5 @@
 <script setup>
-import DailyPlan from "@/components/project/DailyPlan.vue";
+import DailyPlan from "@/components/projects/DailyPlan.vue";
 import {useMealProjectStore} from "@/stores/MealProjectStore.js";
 
 const mealPlanStore = useMealProjectStore()

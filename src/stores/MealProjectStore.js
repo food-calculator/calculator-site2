@@ -7,18 +7,10 @@ export const useMealProjectStore = defineStore('MealProject', () => {
             title: "Montag, 2025-10-24",
             meals: [
                 {recipe: 0, numberOfPersons: 42},
-                {recipe: 3, numberOfPersons: 42},
-                {recipe: 6, numberOfPersons: 42}
+                {recipe: 1, numberOfPersons: 42},
+                {recipe: 2, numberOfPersons: 42}
             ],
         },
-        {
-            title: "Dienstag, 2025-10-24",
-            meals: [
-                {recipe: 1, numberOfPersons: 42},
-                {recipe: 2, numberOfPersons: 42},
-                {recipe: 7, numberOfPersons: 42}
-            ],
-        }
     ])
 
     const mealNames = ref([

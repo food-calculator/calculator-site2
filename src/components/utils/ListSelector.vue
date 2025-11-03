@@ -1,12 +1,26 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
-const props = defineProps(["selectList"])
+const {
+  selectList,
+  customDisplayProperty = "",
+  customIdProperty = ""
+} = defineProps(["selectList", "customDisplayProperty", "customIdProperty"])
+
+const viewList = computed(() =>
+    selectList.map((element, index) => {
+      return {
+        view: (customDisplayProperty === "") ? element : element[customDisplayProperty],
+        id: (customIdProperty === "") ? index : element[customIdProperty]
+      }
+    })
+)
+
 const model = defineModel()
 const edit = ref(false)
 
 function select(e) {
-  model.value = e.target.value
+  model.value = parseInt(e.target.value)
 }
 
 function startEdit() {
@@ -20,12 +34,12 @@ function stopEdit() {
 
 <template>
   <span v-if="!edit" @click="startEdit">
-    {{ selectList[model] }}
+    {{ viewList.filter((element) => element.id === model)[0].view }}
   </span>
   <span v-if="edit">
     <select @change="select">
-      <option v-for="index in Object.keys(selectList)" :value="index" :selected="index === model.toString()">
-        {{ selectList[index] }}
+      <option v-for="element in viewList" :value="element.id" :selected="element.id === model">
+        {{ element.view }}
       </option>
     </select>
     <button @click="stopEdit">Bestätigen</button>
