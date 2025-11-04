@@ -35,7 +35,11 @@ const usedIngredientList = computed(() => {
   const usedIngredientList = []
   for (let ingredientID in ingredientMap) {
     const ingredient = ingredients.value.find(i => i.id.toString() === ingredientID)
-    usedIngredientList.push({
+    const categoryID = ingredient.category
+    if (typeof usedIngredientList[categoryID] !== "object") {
+      usedIngredientList[categoryID] = []
+    }
+    usedIngredientList[categoryID].push({
       quantity: ingredientMap[ingredientID],
       name: ingredient.name,
       unit: ingredient.unit
@@ -45,17 +49,27 @@ const usedIngredientList = computed(() => {
   return usedIngredientList
 })
 
+function categoryName(id) {
+  console.log(id)
+  return categories.value.find(c => c.id === id).name
+}
+
 </script>
 
 <template>
   <h2>Einkaufsliste</h2>
   <div>
-    <div v-for="i in usedIngredientList">
-      <p>{{i.name}}: {{i.quantity}} {{i.unit}}</p>
+    <div v-for="(ingredientList, categoryID) in usedIngredientList">
+      <h3>{{ categoryName(categoryID) }}</h3>
+      <div class="ingrdientList" v-for="i in ingredientList">
+        <p>{{ i.name }}: {{ i.quantity }} {{ i.unit }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
+.ingrdientList {
+  margin-left: 15px;
+}
 </style>
