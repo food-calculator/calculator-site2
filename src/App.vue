@@ -9,11 +9,13 @@ import {RouterLink, RouterView} from 'vue-router'
       <div>
         <RouterLink to="/">Übersicht</RouterLink>
         <a href="https://github.com/food-calculator">Projekt auf Github</a>
+        <RouterLink to="/">Einsätze</RouterLink>
       </div>
       <div>
         <RouterLink to="/ingredients">Zutaten</RouterLink>
         <RouterLink to="/recipes">Rezepte</RouterLink>
         <RouterLink to="/projects">Projekte</RouterLink>
+        <RouterLink to="/shoppingList">Einkaufsliste</RouterLink>
       </div>
     </nav>
   </header>
