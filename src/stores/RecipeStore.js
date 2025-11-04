@@ -9,7 +9,8 @@ export const useRecipeStore = defineStore("Recipes", () => {
             ingredients: [
                 {id: 0, quantity: 1.5},
                 {id: 1, quantity: 1.2}
-            ]
+            ],
+            description: "",
         },
     ])
 

@@ -1,7 +1,7 @@
 <script setup>
-import {nextTick, ref, useTemplateRef} from "vue";
+import {computed, nextTick, ref, useTemplateRef} from "vue";
 
-defineProps(["type"])
+const {emptyValue = "", type} = defineProps(["type", "emptyValue"])
 
 const edit = ref(false)
 const content = defineModel()
@@ -19,15 +19,25 @@ function hide() {
 }
 
 function keyUp(e) {
+  if (e.key === "Escape") hide()
+  if (type === "textarea") return
   if (e.key === 'Enter') hide()
 }
+
+const renderValue = computed(() => {
+  if (content.value !== "" && content.value != null) return content
+  else return emptyValue
+})
 
 </script>
 
 <template>
-  <span v-if="!edit" @click="show">{{ content }}</span>
-  <input ref="input" v-if="edit" :type="type" v-model="content"
+  <pre v-if="!edit && type==='textarea'" @click="show">{{ renderValue }}</pre>
+  <span v-if="!edit && type!=='textarea'" @click="show">{{ renderValue }}</span>
+  <input ref="input" v-if="edit && type!=='textarea'" :type="type" v-model="content"
          @focusout="hide" @keyup="keyUp"/>
+  <textarea ref="input" v-if="edit && type==='textarea'" v-model="content"
+            @focusout="hide" @keyup="keyUp"/>
 </template>
 
 <style scoped>

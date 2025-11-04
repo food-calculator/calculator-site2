@@ -7,8 +7,6 @@ export const useMealProjectStore = defineStore('MealProject', () => {
             title: "Montag, 2025-10-24",
             meals: [
                 {recipe: 0, numberOfPersons: 42},
-                {recipe: 1, numberOfPersons: 42},
-                {recipe: 2, numberOfPersons: 42}
             ],
         },
     ])

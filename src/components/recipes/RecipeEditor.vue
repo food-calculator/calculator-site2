@@ -48,22 +48,31 @@ function removeIngredient(id) {
       Name:
       <InteractiveValue v-model="recipe.name" type="text"/>
     </p>
-    <div class="ingredientContainer">
-      <p>Zutaten pro 10 Personen:</p>
-      <Expandable v-for="ingredient in usedIngredients" :title="ingredient.name" :big-title="false">
-        <p>
-          Zutat:
-          <list-selector v-model="recipe.ingredients[ingredient.id].id" :select-list="ingredients"
-                         custom-id-property="id" custom-display-property="name"/>
-        </p>
-        <p>Menge:
-          <interactive-value v-model="recipe.ingredients[ingredient.id].quantity" type="number"/>
-          {{ ingredient.unit }}
-        </p>
-        <p>Brennwert: {{ ingredient.kcalPerUnit }} kcalPerUnit</p>
-        <button @click="() => removeIngredient(ingredient.id)">Löschen</button>
-      </Expandable>
-      <button @click="addIngredient">Zutat hinzufügen</button>
+    <div class="recipeContentContainer">
+      <div class="ingredientContainer">
+        <p>Zutaten pro 10 Personen</p>
+        <Expandable v-for="ingredient in usedIngredients" :title="ingredient.name" :big-title="false">
+          <p>
+            Zutat:
+            <list-selector v-model="recipe.ingredients[ingredient.id].id" :select-list="ingredients"
+                           custom-id-property="id" custom-display-property="name"/>
+          </p>
+          <p>Menge:
+            <interactive-value v-model="recipe.ingredients[ingredient.id].quantity" type="number"/>
+            {{ ingredient.unit }}
+          </p>
+          <p>Brennwert: {{ ingredient.kcalPerUnit }} kcalPerUnit</p>
+          <button @click="() => removeIngredient(ingredient.id)">Löschen</button>
+        </Expandable>
+        <button @click="addIngredient">Zutat hinzufügen</button>
+      </div>
+      <hr/>
+      <div class="recipeDescription">
+        <p>Beschreibung</p>
+        <div style="padding: 3px; width: max-content">
+          <interactive-value v-model="recipe.description" type="textarea" empty-value="Beschreibung einfügen..."/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,7 +86,10 @@ function removeIngredient(id) {
   margin: 10px 0;
 }
 
-.ingredientContainer {
-  margin-top: 15px;
+.recipeContentContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 15px;
 }
 </style>
