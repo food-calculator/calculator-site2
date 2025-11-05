@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   Build-Image:
-    name: Build the docker image and upload it
+    name: Development Deployment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
