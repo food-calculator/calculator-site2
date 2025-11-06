@@ -6,16 +6,14 @@ export const useMealProjectStore = defineStore('MealProject', () => {
         {
             title: "Montag, 2025-10-24",
             meals: [
-                {recipe: 0, numberOfPersons: 42},
+                {"recipe": 0, "numberOfPersons": 30},
+                {"recipe": 2, "numberOfPersons": 30},
+                {"recipe": 1, "numberOfPersons": 30}
             ],
         },
     ])
 
-    const mealNames = ref([
-        "Mittagessen",
-        "Nachtisch",
-        "Vesper"
-    ])
+    const mealNames = ref(["Mittagessen", "Nachtisch", "Abendessen"])
 
     const dateStart = ref("2025-10-24")
     const dateEnd = ref("2025-10-25")
@@ -25,4 +23,4 @@ export const useMealProjectStore = defineStore('MealProject', () => {
     return {
         days, mealNames, dateStart, dateEnd, numberOfPersons, location
     }
-})
+}, {persist: true})
