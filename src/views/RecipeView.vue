@@ -17,16 +17,19 @@ const currentRecipeName = computed(() =>
 
 function createNewRecipe() {
   let maxID = 0
-
-  for (let recipe in recipeStore.recipes) {
-    if (recipe.id > maxID) maxID = recipe.id.value
+  for (let recipe of recipeStore.recipes) {
+    if (recipe.id > maxID) maxID = recipe.id
   }
+  maxID += 1
 
   recipeStore.recipes.push({
-    id: maxID + 1,
+    id: maxID,
     name: "Neues Rezept",
-    ingredients: []
+    ingredients: [],
+    description: ""
   })
+
+  currentRecipe.value = maxID
 }
 
 function deleteRecipe() {
