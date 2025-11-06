@@ -8,9 +8,8 @@ const ingredientStore = useIngredientStore()
 const ingredients = ingredientStore.ingredients
 
 function addCategory() {
-  const keys = Object.keys(ingredientStore.categories)
-  const max = Math.max(...keys.map(key => parseInt(key)))
-  ingredientStore.categories[max + 1] = "Neue Kategorie"
+  const max = Math.max(...ingredientStore.categories.map(c => parseInt(c.id)))
+  ingredientStore.categories.push({id: max + 1, name: "Neue Kategorie"})
 }
 
 function addIngredient() {
@@ -40,7 +39,7 @@ function removeCategory(id) {
       </div>
       <div id="categoryListContainer">
         <div class="categoryList" v-for="i in Object.keys(ingredientStore.categories)">
-          <InteractiveValue v-model="ingredientStore.categories[i]" type="text"/>
+          <InteractiveValue v-model="ingredientStore.categories[i].name" type="text" empty-value="Kategoriename angeben!"/>
           <button class="deleteButton" @click="() => removeCategory(i)">Löschen</button>
         </div>
         <button @click="addCategory">Neue Kategorie</button>
