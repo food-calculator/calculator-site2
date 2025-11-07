@@ -4,19 +4,22 @@ import {useMealProjectStore} from "@/stores/MealProjectStore.js";
 import {useRecipeStore} from "@/stores/RecipeStore.js";
 import useIngredientStore from "@/stores/IngredientStore.js";
 import {storeToRefs} from "pinia";
-import {computed} from "vue";
+import {computed, ref} from "vue";
+import ListSelector from "@/components/utils/ListSelector.vue";
 
 const mealProjectStore = useMealProjectStore()
 const recipeStore = useRecipeStore()
 const ingredientStore = useIngredientStore()
 
-const {days} = storeToRefs(mealProjectStore)
+const {projects} = storeToRefs(mealProjectStore)
 const {recipes} = storeToRefs(recipeStore)
 const {ingredients, categories} = storeToRefs(ingredientStore)
 
+const selectedProjectId = ref(0)
+
 const usedIngredientList = computed(() => {
   const recipeList = []
-  for (let day of days.value) {
+  for (let day of projects.value[selectedProjectId.value].days) {
     recipeList.push(...day.meals)
   }
 
@@ -57,7 +60,8 @@ function categoryName(id) {
 </script>
 
 <template>
-  <h2>Einkaufsliste</h2>
+  <h2>Einkaufsliste <list-selector v-model="selectedProjectId" :select-list="projects" custom-display-property="title"/></h2>
+  <br/>
   <div>
     <div v-for="(ingredientList, categoryID) in usedIngredientList">
       <h3>{{ categoryName(categoryID) }}</h3>

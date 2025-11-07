@@ -1,21 +1,26 @@
 <script setup>
 import InteractiveValue from "@/components/utils/InteractiveValue.vue";
 import {useMealProjectStore} from "@/stores/MealProjectStore.js";
+import {computed} from "vue";
 
 const mealProjectStore = useMealProjectStore()
 
-const mealNames = mealProjectStore.mealNames
+const {projectId} = defineProps(["projectId"])
+
+const mealNames = computed(() =>
+  mealProjectStore.projects[projectId].mealNames
+)
 
 function addMeal() {
-  mealNames.push("Neue Mahlzeit")
-  mealProjectStore.days.forEach(day => {
-    day.meals.push({recipe: 0, numberOfPersons: mealProjectStore.numberOfPersons})
+  mealProjectStore.projects[projectId].mealNames.push("Neue Mahlzeit")
+  mealProjectStore.projects[projectId].days.forEach(day => {
+    day.meals.push({recipe: 0, numberOfPersons: mealProjectStore.projects[projectId].numberOfPersons})
   })
 }
 
 function deleteMeal(id) {
-  mealNames.splice(id, 1)
-  mealProjectStore.days.forEach(day => {
+  mealProjectStore.projects[projectId].mealNames.splice(id, 1)
+  mealProjectStore.projects[projectId].days.forEach(day => {
     day.meals.splice(id, 1)
   })
 }
