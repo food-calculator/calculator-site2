@@ -3,6 +3,8 @@ import InteractiveValue from "@/components/utils/InteractiveValue.vue";
 import MealNameEditor from "@/components/projects/MealNameEditor.vue";
 import {useMealProjectStore} from "@/stores/MealProjectStore.js";
 
+defineProps(["projectId"])
+
 const mealProjectStore = useMealProjectStore()
 </script>
 
@@ -11,20 +13,20 @@ const mealProjectStore = useMealProjectStore()
     <div class="children">
       <p>
         Zeitraum:
-        <InteractiveValue v-model="mealProjectStore.dateStart" type="date"/>
+        <InteractiveValue v-model="mealProjectStore.projects[projectId].dateStart" type="date"/>
         -
-        <InteractiveValue v-model="mealProjectStore.dateEnd" type="date"/>
+        <InteractiveValue v-model="mealProjectStore.projects[projectId].dateEnd" type="date"/>
       </p>
       <p>
         Personenanzahl:
-        <InteractiveValue v-model="mealProjectStore.numberOfPersons" type="number"/>
+        <InteractiveValue v-model="mealProjectStore.projects[projectId].numberOfPersons" type="number"/>
       </p>
       <p>
         Ort:
-        <InteractiveValue v-model="mealProjectStore.location" type="text"/>
+        <InteractiveValue v-model="mealProjectStore.projects[projectId].location" type="text"/>
       </p>
     </div>
-    <MealNameEditor class="children"/>
+    <MealNameEditor :project-id="projectId" class="children"/>
   </div>
 </template>
 

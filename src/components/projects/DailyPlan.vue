@@ -4,14 +4,15 @@ import InteractiveValue from "@/components/utils/InteractiveValue.vue";
 import Expandable from "@/components/utils/Expandable.vue";
 import ListSelector from "@/components/utils/ListSelector.vue";
 import {useRecipeStore} from "@/stores/RecipeStore.js";
+import {computed} from "vue";
 
-const props = defineProps(["day"])
+const props = defineProps(["day", "projectId"])
 
 const mealProjectStore = useMealProjectStore()
 const recipeStore = useRecipeStore()
 
-const day = mealProjectStore.days[props.day]
-const mealNames = mealProjectStore.mealNames
+const day = computed(() => mealProjectStore.projects[props.projectId].days[props.day])
+const mealNames = computed(() => mealProjectStore.projects[props.projectId].mealNames)
 
 </script>
 
