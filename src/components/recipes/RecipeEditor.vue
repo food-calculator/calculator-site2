@@ -39,6 +39,42 @@ function addIngredient() {
 function removeIngredient(id) {
   recipe.value.ingredients.splice(id, 1)
 }
+
+function dragOver(event) {
+  event.preventDefault()
+}
+
+function dragEnter(event) {
+  event.target.classList.add("hover")
+}
+
+function dragLeave(event) {
+  event.target.classList.remove("hover")
+}
+
+function drop(event) {
+  event.preventDefault()
+  deHover()
+  const source = parseInt(event.dataTransfer.getData("number"))
+  const target = parseInt(event.target.getAttribute("data-drop-id"))
+  console.log(`from: ${source} to ${target}`)
+  const element = recipe.value.ingredients[source]
+  recipe.value.ingredients.splice(source, 1)
+  if (target <= source)
+    recipe.value.ingredients.splice(target, 0, element)
+  else
+    recipe.value.ingredients.splice(target - 1, 0, element)
+}
+
+function deHover() {
+  for (const hover of document.getElementsByClassName("hover")) {
+    hover.classList.remove("hover")
+  }
+}
+
+function dragStart(event, number) {
+  event.dataTransfer.setData("number", number)
+}
 </script>
 
 <template>
@@ -49,21 +85,31 @@ function removeIngredient(id) {
       <InteractiveValue v-model="recipe.name" type="text"/>
     </p>
     <div class="recipeContentContainer">
-      <div class="ingredientContainer">
+      <div class="ingredientList">
         <p>Zutaten pro 10 Personen</p>
-        <Expandable v-for="ingredient in usedIngredients" :title="ingredient.name" :big-title="false">
-          <p>
-            Zutat:
-            <list-selector v-model="recipe.ingredients[ingredient.id].id" :select-list="ingredients"
-                           custom-id-property="id" custom-display-property="name"/>
-          </p>
-          <p>Menge:
-            <interactive-value v-model="recipe.ingredients[ingredient.id].quantity" type="number"/>
-            {{ ingredient.unit }}
-          </p>
-          <p>Brennwert: {{ ingredient.kcalPerUnit }} kcalPerUnit</p>
-          <button @click="() => removeIngredient(ingredient.id)">Löschen</button>
-        </Expandable>
+        <div v-for="(ingredient, i) in usedIngredients">
+          <div class="drop" @dragenter="dragEnter" @dragleave="dragLeave" @dragover="dragOver" @drop="drop"
+               :data-drop-id="i"></div>
+          <div class="ingredientContainer">
+            <span class="dragIngredient" draggable="true"
+                  @dragstart="event => dragStart(event, i)" @dragend="deHover">▒</span>
+            <Expandable :title="ingredient.name" :big-title="false">
+              <p>
+                Zutat:
+                <list-selector v-model="recipe.ingredients[ingredient.id].id" :select-list="ingredients"
+                               custom-id-property="id" custom-display-property="name"/>
+              </p>
+              <p>Menge:
+                <interactive-value v-model="recipe.ingredients[ingredient.id].quantity" type="number"/>
+                {{ ingredient.unit }}
+              </p>
+              <p>Brennwert: {{ ingredient.kcalPerUnit }} kcalPerUnit</p>
+              <button @click="() => removeIngredient(ingredient.id)">Löschen</button>
+            </Expandable>
+          </div>
+        </div>
+        <div class="drop" @dragenter="dragEnter" @dragleave="dragLeave" @dragover="dragOver" @drop="drop"
+             :data-drop-id="usedIngredients.length"></div>
         <button @click="addIngredient">Zutat hinzufügen</button>
       </div>
       <hr/>
@@ -91,5 +137,23 @@ function removeIngredient(id) {
   flex-direction: row;
   gap: 30px;
   padding: 15px;
+}
+
+.ingredientContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px
+}
+
+.dragIngredient {
+  cursor: pointer;
+}
+
+.drop {
+  height: 1em;
+}
+
+.hover {
+  background: rgba(0, 255, 0, 0.2);
 }
 </style>
