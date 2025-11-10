@@ -33,7 +33,7 @@ function stopEdit() {
 </script>
 
 <template>
-  <span v-if="!edit" @click="startEdit">
+  <span class="listSelectorView" v-if="!edit" @click="startEdit">
     {{ viewList.filter((element) => element.id === model)[0].view }}
   </span>
   <span v-if="edit">
@@ -49,5 +49,14 @@ function stopEdit() {
 <style scoped>
 button {
   margin-left: 1lh;
+}
+
+.listSelectorView {
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.listSelectorView:hover {
+  background: var(--color-background-soft);
 }
 </style>
